@@ -1,0 +1,113 @@
+.inner {
+    background: rgb(255, 0, 17);
+    background: radial-gradient(circle, rgba(255, 0, 17, 1) 0%, rgba(213, 0, 14, 1) 56%, rgba(255, 0, 39, 1) 100%);
+    border-radius: 15px;
+}
+
+.col-6 {
+    font-family: 'Nunito', sans-serif;
+    font-size: 50px;
+
+}
+
+.btn1 {
+    background-image: url(../imagenes/gaveta.png);
+    background-position: center;
+    max-width: auto;
+
+}
+
+.circle {
+    width: 100%;
+    margin: aut;
+    border-radius: 150px;
+}
+
+.card-header {
+    background-image: linear-gradient(120deg, #fdfbfb 0%, #ebedee 100%);
+    border-radius: 1rem;
+}
+
+img {
+    width: 195px;
+    height: 170px;
+}
+
+#imageTool{
+    width: 500px;
+    height: 400px;
+}
+
+.btn-file {
+    position: relative;
+    overflow: hidden;
+}
+
+.btn-file input[type=file] {
+    position: absolute;
+    top: 0;
+    right: 0;
+    min-width: 100%;
+    min-height: 100%;
+    font-size: 100px;
+    text-align: right;
+    filter: alpha(opacity=0);
+    opacity: 0;
+    outline: none;
+    background: rgb(243, 0, 0);
+    cursor: inherit;
+    display: block;
+}
+
+.cover_photo {
+    width: 100%;
+    height: 250px;
+    overflow: hidden;
+    position: relative;
+}
+
+.cover_photo img {
+    width: 100%;
+}
+
+.upload_btn input[type="file"] {
+    height: 28px;
+    left: 50;
+    position: absolute;
+    top: 0;
+    opacity: 0;
+    width: 32px;
+    z-index: 1;
+}
+
+#fotoComentario {
+    font-size: 30px;
+    cursor: pointer;
+}
+
+#diseño {
+    display: flex;
+}
+
+#parrafos {
+    font-size: 12px;
+}
+
+table {
+
+    overflow-x: auto;
+}
+
+table tr{
+    text-align: center;
+}
+
+table td {
+    word-wrap: break-word;
+    max-width: 400px;
+    text-align: center;
+}
+
+#tablaHerramientas td {
+    white-space: inherit;
+}

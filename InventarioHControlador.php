@@ -119,9 +119,9 @@ switch ($_REQUEST["operador"]) {
                 }
             } else { // else en caso de que si exista una foto
                 //foto                
-                if ($_FILES["foto-herramienta"]["tmp_name"] == "") {
-                    $response = "max";
-                } else {
+                 if ($_FILES["foto-herramienta"]["tmp_name"] == "") {
+                     $response = "max";
+                 } else {
                     $imagen = $_FILES["foto-herramienta"];
                     $type = pathinfo($imagen["name"], PATHINFO_EXTENSION);
                     $ruta = md5($imagen["tmp_name"]) . "." . $type;
@@ -136,8 +136,9 @@ switch ($_REQUEST["operador"]) {
                         }
                     } else {
                         $response = "error";
-                    }
-                }
+                    }                   
+                 }                        
+                
             }
         } else {
             $response = "requerid";
@@ -159,9 +160,9 @@ switch ($_REQUEST["operador"]) {
                     $response = "failed";
                 }
             } else {
-                if ($_FILES["foto_mecanico"]["tmp_name"] == "") {
-                    $response = "max";
-                } else {
+                 if ($_FILES["foto_mecanico"]["tmp_name"] == "") {
+                     $response = "max";
+                 } else {
                     $foto = $_FILES["foto_mecanico"];
                     $tamaño = $foto['size'];
                     $type = pathinfo($foto["name"], PATHINFO_EXTENSION);
@@ -178,7 +179,7 @@ switch ($_REQUEST["operador"]) {
                     } else {
                         $response = "failed";
                     }
-                }
+                 }                
             }
         } else {
             $response = "requerid";
@@ -379,9 +380,10 @@ switch ($_REQUEST["operador"]) {
                     $response = "failed";
                 }
             } else {
-                if ($_FILES["filedt"]["tmp_name"] == "") {
-                    $response = "max";
-                } else {
+                
+                 if ($_FILES["filedt"]["tmp_name"] == "") {
+                     $response = "max";
+                 } else {                    
                     $foto = $_FILES["filedt"];
                     $tamaño = $foto['size'];
                     $type = pathinfo($foto["name"], PATHINFO_EXTENSION);
@@ -401,7 +403,7 @@ switch ($_REQUEST["operador"]) {
                     } else {
                         $response = "failed";
                     }
-                }
+                 }                
             }
         } else {
             $response = "requerid";
@@ -424,9 +426,9 @@ switch ($_REQUEST["operador"]) {
                     $response = "failed";
                 }
             } else {
-                if ($_FILES["foto_mecanico_e"]["tmp_name"] == "") {
-                    $response = "max";
-                } else {
+                 if ($_FILES["foto_mecanico_e"]["tmp_name"] == "") {
+                     $response = "max";
+                 } else {                    
                     $foto_mecanico_e = $_FILES["foto_mecanico_e"];
                     $tamaño = $foto_mecanico_e['size'];
                     $type = pathinfo($foto_mecanico_e["name"], PATHINFO_EXTENSION);
@@ -446,7 +448,10 @@ switch ($_REQUEST["operador"]) {
                     } else {
                         $response = "failed";
                     }
-                }
+                 }
+                
+
+
                 //echo $_FILES["foto_mecanico_e"]["tmp_name"];
                 // list($width, $height) = getimagesize($_FILES["foto_mecanico_e"]["tmp_name"]);
                 // //                echo $width.$height;
@@ -638,27 +643,44 @@ function compressImage($source, $destination, $quality)
     $imgInfo = getimagesize($source);
     $mime = $imgInfo['mime'];
 
-
     // Creamos una imagen
     switch ($mime) {
         case 'image/jpeg':
-            $image = imagecreatefromjpeg($source);
+            $imageOrigin = imagecreatefromjpeg($source);
             break;
         case 'image/png':
-            $image = imagecreatefrompng($source);
+            $imageOrigin = imagecreatefrompng($source);
             break;
         case 'image/gif':
-            $image = imagecreatefromgif($source);
+            $imageOrigin = imagecreatefromgif($source);
             break;
         default:
-            $image = imagecreatefromjpeg($source);
+        $imageOrigin = imagecreatefromjpeg($source);
     }
-    //  $ancho_original = imagesx($image);
-    //  $alto_original = imagesy($image);
+
+
+
+    $ancho_origen = imagesx($imageOrigin);
+    $alto_origen = imagesy($imageOrigin);
+    $ancho_limite = 720;
+
+    if($ancho_origen > $alto_origen){ //para fotos horizontales
+        $ancho_origen = $ancho_limite;
+        $alto_origen = $ancho_limite * imagesy($imageOrigin) / imagesx($imageOrigin);        
+    }else{ //para fotos verticales
+        $alto_origen = $ancho_limite;
+        $ancho_origen = $ancho_limite * imagesx($imageOrigin) / imagesy($imageOrigin);        
+        
+    }
+
+    $imagenDestino = imagecreatetruecolor($ancho_origen,$alto_origen);
+    imagecopyresized($imagenDestino,$imageOrigin,0,0,0,0,$ancho_origen,$alto_origen,imagesx($imageOrigin),imagesy($imageOrigin));
+
+
 
     //  $tmp = imagecreatetruecolor($alto_original,$ancho_original);
     //  imagecopy($tmp, $image,0,0,0,0, $alto_original, $ancho_original);
-    imagejpeg($image, $destination, $quality);
+    imagejpeg($imagenDestino, $destination, $quality);
     // if ($ancho_original <= $nAncho && $alto_original <= $nAlto) { //Si la imagen es menor a las dimensiones establecidas entonces se guarda así.
     //     imagejpeg($image, $destination, $quality);
     //     echo "no se redimensiono";

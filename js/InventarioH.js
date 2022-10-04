@@ -508,8 +508,9 @@ function RegistrarHerramienta() {
             } else if (response == 'requerid') {
                 toastr.warning("Complete todos los campos porfavor", "Campos Incompletos");
             } else if (response == "max") {
-                toastr.error("La imagen no se guardo", "Imagen muy grande, agregue una imagen de menor resolución");
+                toastr.error("La imagen no se guardo", "La imagen es de alta resolucion, baje la resolucion e intentelo de nuevo");
             } else {
+                alert(response);
                 toastr.error("No se pudo registrar herramienta", "Error!");
             }
         },
